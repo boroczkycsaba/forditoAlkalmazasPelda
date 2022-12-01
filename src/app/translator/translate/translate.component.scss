@@ -1,0 +1,9 @@
+mat-card {
+  width: 50%;
+  margin: 40px auto;
+
+  .translatorContent {
+    display: flex;
+    flex-direction: column;
+  }
+}

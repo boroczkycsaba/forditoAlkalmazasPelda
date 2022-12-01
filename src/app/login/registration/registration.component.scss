@@ -1,0 +1,9 @@
+mat-card {
+  width: 50%;
+  margin: 20px auto;
+
+  .registrationContent {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,83 @@
+<app-header></app-header>
+
+<mat-card *ngIf="!isRegisteredUser">
+  <mat-card-title>Register in the app for huge big benefits</mat-card-title>
+  <mat-card-actions>
+    <button mat-button color="primary" [disabled]="isRegisteredUser" (click)="navigataToRegistration()">Registration</button>
+  </mat-card-actions>
+</mat-card>
+
+
+<form [formGroup]="translatiorForm" (ngSubmit)="translate()">
+  <mat-card>
+    <mat-card-title>Text translate to multiple language</mat-card-title>
+    <mat-card-content>
+      <div class="translatorContent">
+        <mat-form-field appearance="fill">
+          <mat-label>Text to translate</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    formControlName="textToTranslate"
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="4"
+                    cdkAutosizeMaxRows="10"></textarea>
+          <mat-error *ngIf="translatiorForm.controls['textToTranslate'].errors?.['required']">
+            Please add the text what you want translate
+          </mat-error>
+        </mat-form-field>
+        <mat-spinner *ngIf="isAutomaticTextDetectionInProgess" value="100" mode="indeterminate"></mat-spinner>
+        <mat-form-field appearance="fill" *ngIf="!isAutomaticTextDetectionInProgess" >
+          <mat-label>Origin language</mat-label>
+          <input type="text"
+                 placeholder="Please select the origin language"
+                 aria-label="Origin language"
+                 matInput
+                 formControlName="originLanguage"
+                 [matAutocomplete]="originLanguageAuto">
+          <mat-autocomplete autoActiveFirstOption #originLanguageAuto="matAutocomplete"
+                            [displayWith]="displayOriginLangaugeFn.bind(this)">
+            <mat-option *ngFor="let originLanguage of originLanguageFilteredOptions | async"
+                        [value]="originLanguage.name">
+              {{originLanguage.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Target language</mat-label>
+          <input type="text"
+                 placeholder="Please select the target language"
+                 aria-label="Target language"
+                 matInput
+                 formControlName="targetLanguage"
+                 [matAutocomplete]="targetLanguageAuto">
+          <mat-autocomplete autoActiveFirstOption #targetLanguageAuto="matAutocomplete"
+                            [displayWith]="displayTargetLangaugeFn.bind(this)">
+            <mat-option *ngFor="let targetLanguage of targetLanguageFilteredOptions | async"
+                        [value]="targetLanguage.name">
+              {{targetLanguage.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Translated text</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    formControlName="translatedText"
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="10"
+                    cdkAutosizeMaxRows="10"
+                    [readonly]="true"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" *ngIf="!isTranslateTextInProgess" [disabled]="translatiorForm.invalid || isAutomaticTextDetectionInProgess">Translate text</button>
+      <mat-spinner *ngIf="isTranslateTextInProgess" value="100" mode="indeterminate"></mat-spinner>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<mat-spinner diameter="30" *ngIf="isGlobalError"></mat-spinner>
+
+
+

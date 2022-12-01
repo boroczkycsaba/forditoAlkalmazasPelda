@@ -1,0 +1,40 @@
+<form [formGroup]="registrationForm" (ngSubmit)="register()">
+  <mat-card>
+    <mat-card-title>Register to application</mat-card-title>
+    <mat-card-content>
+      <div class="registrationContent">
+        <mat-form-field appearance="fill">
+          <mat-label>Your name</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="registrationForm.controls['name'].errors?.['required']">
+            Please add the text what you want translate
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email addrress</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="registrationForm.controls['email'].errors?.['required']">
+            Please add your email
+          </mat-error>
+          <mat-error *ngIf="registrationForm.controls['email'].errors?.['email']">
+            Please fill valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Phone number</mat-label>
+          <input matInput formControlName="phoneNumber">
+          <mat-error *ngIf="registrationForm.controls['phoneNumber'].errors?.['required']">
+            Please add your phone number
+          </mat-error>
+        </mat-form-field>
+        <mat-checkbox formControlName="accaptTheRules" color="warn">Accpet the rules</mat-checkbox>
+        <mat-error *ngIf="registrationForm.controls['accaptTheRules'].errors?.['required']">
+          Before register to application accpet the rules
+        </mat-error>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" [disabled]="registrationForm.invalid" mat-button color="primary">Register</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
