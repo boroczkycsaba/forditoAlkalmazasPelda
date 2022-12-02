@@ -21,5 +21,4 @@ export class TranslatorGuard implements CanActivate {
     return true;
   }
 
-
 }

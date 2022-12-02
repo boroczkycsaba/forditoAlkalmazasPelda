@@ -5,6 +5,8 @@ import {UserService} from "./user.service";
 @Injectable()
 export class TranslationAuthService {
 
+  maxTryNumber: number = 3;
+
   private runnedTranslationKey: string = "runnedTranslationKey";
 
   constructor(private dataStorageService: DataStorageService,
@@ -12,10 +14,11 @@ export class TranslationAuthService {
 
   noRegisteredUserCanTranslate() {
     const runnedTranslationNum = this.dataStorageService.loadData(this.runnedTranslationKey);
+    console.log("runnedTranslationNum", runnedTranslationNum);
     if (!runnedTranslationNum) {
       return true;
     } else {
-      return runnedTranslationNum < 4;
+      return runnedTranslationNum < this.maxTryNumber;
     }
   }
 

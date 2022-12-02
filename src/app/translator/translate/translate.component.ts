@@ -28,6 +28,7 @@ export class TranslateComponent implements OnInit {
   isGlobalError: boolean = false;
   isTranslateTextInProgess: boolean = false;
   isAutomaticTextDetectionInProgess: boolean = false;
+
   constructor(private commondDataLoadTranslatorService: CommondDataLoadTranslatorService,
               private textTranslateService: TextTranslateService,
               private router: Router,
@@ -58,12 +59,12 @@ export class TranslateComponent implements OnInit {
       value => {
         this.isAutomaticTextDetectionInProgess = true;
         this.textTranslateService.detectTextLanguage(value).subscribe((detecttedLanguage: any) => {
-          if (detecttedLanguage && detecttedLanguage[0]) {
-            this._originLanguageSelectByCode(detecttedLanguage[0].language);
-          }
-          this.isAutomaticTextDetectionInProgess = false;
-        },
-          (err:any) => {
+            if (detecttedLanguage && detecttedLanguage[0]) {
+              this._originLanguageSelectByCode(detecttedLanguage[0].language);
+            }
+            this.isAutomaticTextDetectionInProgess = false;
+          },
+          (err: any) => {
             this.isAutomaticTextDetectionInProgess = false;
             console.error(err);
             this.openErrorMessage('Error, sorry the text language detection not work');
@@ -173,8 +174,9 @@ export class TranslateComponent implements OnInit {
               });
             this.textTranslateService.runnedTranslationProgramNum();
             this.isTranslateTextInProgess = false;
+
           },
-          (err:any) => {
+          (err: any) => {
             this.isTranslateTextInProgess = false;
             console.error(err);
             this.openErrorMessage('Error, sorry translating the text not working');
@@ -185,5 +187,4 @@ export class TranslateComponent implements OnInit {
       this.openErrorMessage('It is no longer possible to translate texts in the application. Please register!');
     }
   }
-
 }
