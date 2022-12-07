@@ -2,35 +2,35 @@
   <mat-card>
     <mat-card-title>Register to application</mat-card-title>
     <mat-card-content>
+      <mat-error *ngIf="!registrationForm.controls['name'].touched || registrationForm.controls['name'].errors?.['required']">
+        Please add your name
+      </mat-error>
       <div class="registrationContent">
         <mat-form-field appearance="fill">
           <mat-label>Your name</mat-label>
           <input matInput formControlName="name">
-          <mat-error *ngIf="registrationForm.controls['name'].errors?.['required']">
-            Please add the text what you want translate
-          </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="!registrationForm.controls['email'].touched || registrationForm.controls['email'].errors?.['required']">
+          Please add your email
+        </mat-error>
+        <mat-error *ngIf="registrationForm.controls['email'].errors?.['email']">
+          Please fill valid email address
+        </mat-error>
         <mat-form-field appearance="fill">
           <mat-label>Email addrress</mat-label>
           <input matInput formControlName="email">
-          <mat-error *ngIf="registrationForm.controls['email'].errors?.['required']">
-            Please add your email
-          </mat-error>
-          <mat-error *ngIf="registrationForm.controls['email'].errors?.['email']">
-            Please fill valid email address
-          </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="registrationForm.controls['phoneNumber'].errors?.['required']">
+          Please add your phone number
+        </mat-error>
         <mat-form-field appearance="fill">
           <mat-label>Phone number</mat-label>
           <input matInput formControlName="phoneNumber">
-          <mat-error *ngIf="registrationForm.controls['phoneNumber'].errors?.['required']">
-            Please add your phone number
-          </mat-error>
         </mat-form-field>
-        <mat-checkbox formControlName="accaptTheRules" color="warn">Accpet the rules</mat-checkbox>
         <mat-error *ngIf="registrationForm.controls['accaptTheRules'].errors?.['required']">
           Before register to application accpet the rules
         </mat-error>
+        <mat-checkbox formControlName="accaptTheRules" color="warn">Accpet the rules</mat-checkbox>
       </div>
     </mat-card-content>
     <mat-card-actions>

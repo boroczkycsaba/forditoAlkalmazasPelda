@@ -13,6 +13,9 @@
     <mat-card-title>Text translate to multiple language</mat-card-title>
     <mat-card-content>
       <div class="translatorContent">
+        <mat-error *ngIf="translatiorForm.controls['textToTranslate'].errors?.['required']">
+          Please add the text what you want translate
+        </mat-error>
         <mat-form-field appearance="fill">
           <mat-label>Text to translate</mat-label>
           <textarea matInput
@@ -21,11 +24,11 @@
                     #autosize="cdkTextareaAutosize"
                     cdkAutosizeMinRows="4"
                     cdkAutosizeMaxRows="10"></textarea>
-          <mat-error *ngIf="translatiorForm.controls['textToTranslate'].errors?.['required']">
-            Please add the text what you want translate
-          </mat-error>
         </mat-form-field>
         <mat-spinner *ngIf="isAutomaticTextDetectionInProgess" value="100" mode="indeterminate"></mat-spinner>
+        <mat-error *ngIf="translatiorForm.controls['originLanguage'].errors?.['required']">
+          Please add the language from which you would like to translate the text
+        </mat-error>
         <mat-form-field appearance="fill" *ngIf="!isAutomaticTextDetectionInProgess" >
           <mat-label>Origin language</mat-label>
           <input type="text"
@@ -42,6 +45,9 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
+        <mat-error *ngIf="translatiorForm.controls['targetLanguage'].errors?.['required']">
+          Please add the language into which you would like the text to be translated
+        </mat-error>
         <mat-form-field appearance="fill">
           <mat-label>Target language</mat-label>
           <input type="text"
